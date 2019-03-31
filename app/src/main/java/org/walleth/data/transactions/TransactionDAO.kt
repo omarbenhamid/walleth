@@ -46,10 +46,10 @@ interface TransactionDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun upsert(transactionEntities: List<TransactionEntity>)
 
-    @Query("SELECT nonce from transactions WHERE \"from\" = :address COLLATE NOCASE AND chain=:chain")
+    @Query("SELECT nonce from transactions WHERE \"from\" = :address COLLATE NOCASE AND chain=:chain AND NOT isPending")
     fun getNonceForAddressLive(address: Address, chain: ChainDefinition): LiveData<List<BigInteger>>
 
-    @Query("SELECT nonce from transactions WHERE \"from\" = :address COLLATE NOCASE AND chain=:chain")
+    @Query("SELECT nonce from transactions WHERE \"from\" = :address COLLATE NOCASE AND chain=:chain AND NOT isPending")
     fun getNonceForAddress(address: Address, chain: ChainDefinition): List<BigInteger>
 
     @Query("SELECT * from transactions WHERE r IS NOT NULL AND relayed=\"\" AND error IS NULL")
