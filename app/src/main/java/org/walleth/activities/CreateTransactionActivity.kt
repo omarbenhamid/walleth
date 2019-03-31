@@ -308,10 +308,12 @@ class CreateTransactionActivity : BaseSubActivity() {
 
         amountController.setValue(amountController.getValueOrZero(), currentToken)
 
-        if (currentToken.isRootToken()) {
-            gas_limit_input.setText(DEFAULT_GAS_LIMIT_ETH_TX.toString())
-        } else {
-            gas_limit_input.setText(DEFAULT_GAS_LIMIT_ERC_20_TX.toString())
+        if(currentERC681?.gas == null) {
+            if (currentToken.isRootToken()) {
+                gas_limit_input.setText(DEFAULT_GAS_LIMIT_ETH_TX.toString())
+            } else {
+                gas_limit_input.setText(DEFAULT_GAS_LIMIT_ERC_20_TX.toString())
+            }
         }
     }
 
